@@ -1,32 +1,41 @@
+import java.util.Stack;
+
 public class Main {
     public static void main(String[] args) {
 
-        int[] nums = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
-
-        int k = removeDuplicates(nums);
-
-        System.out.println(k);
+        System.out.println(isValid("()"));         // true
+        System.out.println(isValid("()[]{}"));     // true
+        System.out.println(isValid("(]"));         // false
+        System.out.println(isValid("([)]"));       // false
+        System.out.println(isValid("{[]}"));       // true
     }
 
-    public static int removeDuplicates(int[] nums) {
 
-        if (nums.length == 0) return 0;
+    public static boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
 
-        int k = 0;
+        char[] charArray = s.toCharArray();
 
-        for (int i = 1; i < nums.length; i++) {
 
-            if( nums[k] != nums[i]){
-                k++;
-                nums[k] = nums[i];
+        for (char ch : charArray) {
+
+            if (ch == '[' || ch == '{' || ch == '(') {
+                stack.push(ch);
+                continue;
+            } else {
+                if (stack.empty()) {
+                    return false;
+                }
+
+                char top = stack.pop(); // Remove o elemento do topo
+                if ((ch == ']' && top != '[') ||
+                        (ch == '}' && top != '{') ||
+                        (ch == ')' && top != '(')) {
+                    return false;
+                }
+
             }
         }
-
-
-
-
-
-        return k + 1;
+        return stack.isEmpty();
     }
-
 }
