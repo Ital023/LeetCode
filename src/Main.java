@@ -1,41 +1,30 @@
-import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println(isValid("()"));         // true
-        System.out.println(isValid("()[]{}"));     // true
-        System.out.println(isValid("(]"));         // false
-        System.out.println(isValid("([)]"));       // false
-        System.out.println(isValid("{[]}"));       // true
+        String s = "   fly me   to   the moon  ";
+
+        System.out.println(lengthOfLastWord(s));
+
     }
 
 
-    public static boolean isValid(String s) {
-        Stack<Character> stack = new Stack<>();
+    public static int lengthOfLastWord(String s) {
+        String[] words = s.split(" ");
 
-        char[] charArray = s.toCharArray();
+        for(int i = words.length - 1; i >= 0; i--){
 
-
-        for (char ch : charArray) {
-
-            if (ch == '[' || ch == '{' || ch == '(') {
-                stack.push(ch);
-                continue;
-            } else {
-                if (stack.empty()) {
-                    return false;
-                }
-
-                char top = stack.pop(); // Remove o elemento do topo
-                if ((ch == ']' && top != '[') ||
-                        (ch == '}' && top != '{') ||
-                        (ch == ')' && top != '(')) {
-                    return false;
-                }
-
+            if(!words[i].isEmpty()){
+                String theWord = words[i];
+                return theWord.length();
             }
+
         }
-        return stack.isEmpty();
+
+
+        return 1;
     }
-}
+
+
+    }
+
